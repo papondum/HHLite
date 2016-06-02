@@ -1,0 +1,149 @@
+<ion-view >
+
+  <ion-nav-bar class="bar-assertive nav-bar-container" nav-bar-transition="ios" nav-bar-direction="none" nav-bar-direction="none"nav-swipe>
+
+    <div class="nav-bar-block" nav-bar="active">
+      <ion-header-bar class="bar-assertive bar bar-header disable-user-behavior" align-title="center">
+
+        <ion-nav-back-button >
+
+        </ion-nav-back-button>
+
+        <div class="title title-center header-item" style="left: 63px; right: 63px;">{{Res.name}}</div>
+
+        <ion-nav-buttons class="buttons buttons-right header-item" side="right">
+          <span class="right-buttons">
+            <button class="button button-assertive button-fab"  ng-click="edit()">
+              <i class="ion-compose"></i>
+            </button>
+          </span>
+        </ion-nav-buttons>
+
+      </ion-header-bar>
+    </div>
+
+  </ion-nav-bar>
+
+  <ion-content class="padding">
+  <div class="card">
+
+  <div class="item" ng-style="set_color(Res)">       
+      <h3 style="text-align:center;color:#FFF;" ng-style="set_color(Res)" ng-model="Model" ng-init="MakeStatus(Res)"/>{{Model}}</h3>
+  </div>
+
+  <div class="item item-icon-left" ng-init="Condat()">   
+
+    <i class="icon ion-bookmark"></i>    
+    <div class="row" >
+      <div class="col col-30" translate="c1">Status</div>  
+      <select ng-model="Model" ng-change="ChangeStatus(Model)" ng-init="MakeStatus(Res)" class="col col-70 form-control">    
+        <option value="Pending" translate="c16">Pending</option> <!-- interpolation -->
+        <option value="Cancel" translate="c17">Cancel</option>
+        <option value="Noshow" translate="c18">Noshow</option>
+        <option value="Arrived" translate="c19">Arrived</option>
+      </select>
+    </div>
+
+
+  </div>
+
+
+
+  <div class="item item-icon-left">    
+    <i class="icon ion-ios-calendar-outline"></i>    
+    <div class="row">
+      <div class="col col-30" translate="c2">Date</div>  
+      <input type='date' class="col col-70 form-control" ng-model="Res.Fulldate"  ng-disabled='Disable'/>
+    </div>
+  </div>
+  <div class="item item-icon-left">    
+    <i class="icon ion-ios-clock-outline"></i>    
+    <div class="row">
+      <div class="col col-30" translate="c3">Time</div>  
+      <input type='time' class="col col-70 form-control" ng-model="Res.Fulldate" ng-disabled='Disable' step="900"/>
+    </div>
+  </div>                       
+
+  <div class="item item-icon-left">
+    <i class="icon ion-android-person"></i>    
+    <div class="row">
+      <div class="col col-30" translate="c4">Size</div>  
+      <input type='number' class="col col-70 form-control" min='0'max='100' ng-model="Res.party_size" ng-disabled='Disable' value='{{Res.party_size}}'/>      
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-ios-pricetag-outline"></i>    
+    <div class="row">
+      <div class="col col-30" translate="c5">Name</div>  
+      <div class="col col-70" >{{Res.name}}</div>
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-ios-telephone"></i>    
+    <div class="row">
+      <div class="col col-30" translate="c6">Phone</div>  
+      <div class="col col-70">{{Res.phone}}</div>
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-ios-star-outline"></i>    
+     <div class="row">
+      <div class="col col-30" translate="c7">Sp.req</div>  
+      <input type='text' class="col col-70 form-control" ng-init="chkUnd(Res)" ng-model="Res.special_request" ng-disabled='Disable'/>      
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-ios-bookmarks-outline"></i>    
+     <div class="row">
+      <div class="col col-30" translate="c8">Table</div>
+      <input type='text' class="col col-70 form-control" ng-model="Res.table" ng-disabled='Disable'/>      
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-stats-bars"></i>    
+     <div class="row">
+      <div class="col col-30" translate="c9">Channel</div>  
+      <div class="col col-70">{{Channelconvert(Res.channel)}}</div>
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-at"></i>    
+     <div class="row">
+      <div class="col col-30" translate="c10">Email</div>  
+      <div class="col col-70" ng-if="Res.email!='undefined'">{{Res.email}}</div>
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-arrow-graph-up-right"></i>    
+     <div class="row">
+      <div class="col col-30" translate="c11">Attendance</div>  
+      <div class="col col-70">{{Res.quality}}</div>
+    </div>
+  </div>
+  <div class="item item-icon-left">
+    <i class="icon ion-flag"></i>    
+     <div class="row">
+      <div class="col col-30" translate="c12">R.id</div>  
+      <div class="col col-70">{{Res.id}}</div>
+    </div>
+  </div>
+ 
+  <div class="item item-icon-left">
+    <i class="icon ion-plus"></i>
+    <div class="row">
+      <div class="col col-30" translate="c13">Time stamp</div>  
+      <div class="col col-70">{{Res.created_at}}</div>
+    </div>
+     
+  </div>
+</div>
+
+  </div>  
+  <div class="button-bar" ng-hide="Disable">
+      <a class="button button-clear button-assertive" ng-click="EditE(Res)" translate="c14">Done</a>     
+      <a class="button button-clear button-stable"ng-click="CancelE()" translate="c15">Cancel</a>
+    </div>
+  </ion-content>
+
+</ion-view>
+

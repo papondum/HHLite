@@ -1,0 +1,22 @@
+<ion-view name="login-view" cache-view="false" >
+  <ion-content class="padding">
+      <div class="list" ng-init="Init()">
+        <img ng-src="{{image}}" class="img-responsive" style="margin: 0 auto" width="40%" height="40%" >
+        
+    
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Username</span>
+              <input type="text" placeholder="Username" ng-model="data.username" >
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Password</span>
+              <input type="password" placeholder="Password" ng-model="data.password">
+            </label>
+      
+         
+      </div>
+      <button class="button button-block button-assertive" ng-click="login()">Login</button>      
+      <!-- <button class="button button-block button-assertive" ng-click="Checkval()">Chck</button>     -->
+  </ion-content>
+</ion-view>

@@ -1,0 +1,173 @@
+<ion-view nav-swipe>
+
+
+  <ion-nav-bar class="bar-assertive nav-bar-container" nav-bar-transition="ios" nav-bar-direction="none" nav-bar-direction="none"nav-swipe>
+
+
+    <div class="nav-bar-block" nav-bar="active">
+      <ion-header-bar class="bar-assertive bar bar-header disable-user-behavior" align-title="center">
+
+      <ion-nav-buttons side="left">        
+        <button class="button-icon icon ion-navicon" ng-click="toggleLeft()"></button>
+      </ion-nav-buttons>
+<!-- 
+      <ion-nav-buttons side="left" class="buttons buttons-left header-item">
+        <span class="left-buttons">
+          <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
+        </span>
+      </ion-nav-buttons> -->
+
+        <div class="title title-center header-item" style="left: 63px; right: 63px;">{{navTitle}}</div>
+
+        <ion-nav-buttons class="buttons buttons-right header-item" side="right">
+          <span class="right-buttons">
+            <button class="button button-assertive button-fab"  ng-click="refreshFn()">
+              <i class="ion-ios-refresh-empty"></i>
+            </button>
+            <button class="button button-assertive button-fab"  ng-click="create()">
+              <i class="ion-plus-round"></i>
+            </button>
+          </span>
+        </ion-nav-buttons>
+
+      </ion-header-bar>
+    </div>
+
+  </ion-nav-bar>
+
+	<ion-tabs class="tabs-icon-bottom tabs-assertive">
+    
+    <ion-tab title="All" icon-off="ion-android-home" icon-on="ion-android-home">                                    <!-- Main -->
+      <ion-view>
+  		  <ion-content class="padding">      
+	        <ion-refresher on-refresh="PullForOlder()" ng-init="Refresh()">
+        	</ion-refresher>
+              <div style="text-align:center">
+                <h5 class="title" style ="color:#ABABAB" translate="b1">Pull down for older 
+                  <i class="ion-ios-arrow-down" ></i>
+                </h5>  
+              </div>
+<!-- 	      	     <div class="bar bar-header" ng-hide='max()'>
+                  <h4 class="title">No upcoming reservation 
+                    <i class="icon ion-chevron-up" ></i></h4>                     
+                </div> -->
+
+              <ion-list>
+
+              	<div ng-repeat="data in (filteredItem=(Reserve|slice:counter|limitTo:quantity))" ng-if="Reserve[0].restaurant_id!=null">
+                  
+                    <!-- {{Cuttime(data.date)}}    return string   Need trim data.date  -->
+                  <h5 class="item-divider" ng-hide="filteredItem[$index-1].date.substring(0, 10)==data.date.substring(0, 10)" style="padding:10px">{{Showdate(data.date)}}                    
+                    
+
+                    <span ng-if="$index!=0" ng-init="inndex($index)"/></h5>
+                    <!--                     data.date={{data.date}}
+                    filteredItem[$index-1].date={{filteredItem[$index-1].date}} -->
+
+                    <ion-item  href="#/menu/tab/{{data.id}}" class="item-icon-right">
+
+                      <div class="row" ng-hide='$index==filteredItem.length'>
+                  			<div class="col col-30" id = "textTab">
+                          <h2> {{data.start_time}}</h2>
+                          <p class="ion-android-person"> {{data.party_size}}</p>
+                        </div>
+
+                  			<div ng-style="set_color(data)"style="background-color:#9C9C9C;color:#FFF;border-radius:10px;" >
+                          <h3 style="padding-top:25px;padding-right:10px;padding-left:10px" >{{data.status}}</h3>
+                        </div> 
+                        <div style="width:10px"></div>          
+                  			<div class="col col-40" id = "textTab1">
+                          <h2><b>{{data.name}}</b></h2>
+                          <span  id="Subtitle">
+                           <p> <span ng-if="data.table!=null&&data.table!='undefined'">{{data.table}} - </span><b id="Subtitle" ng-if="data.special_request!=null&&data.special_request!='undefined'">{{data.special_request}}</b></p>
+                            </span>
+                        </div>
+                  			<i class="icon ion-chevron-right icon-accessory"></i>
+                        <ion-option-button class="button-balanced" ng-click='Arrived(data)'>Arrived</ion-option-button>
+                        <ion-option-button class="button-assertive" ng-click='Noshow(data)'>NoShow</ion-option-button>
+                        <ion-option-button class="button-positive" ng-click='Cancel(data)'>Cancel</ion-option-button>
+                			</div> 
+
+                    </ion-item><hr>                                   	                                      
+            		</div>
+              </ion-list>
+              <div ng-show="Reserve[0].restaurant_id==null"><h4 style="text-align:center">No upcoming reservation</h4></div>
+                <button class="button button-block button-stable" ng-if='max()' ng-click="Addquan()" translate="d5">Show more</button>
+               
+  		  </ion-content>
+
+	   </ion-view>
+    </ion-tab>  
+
+    <ion-tab title="Today" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes">                                                          <!--   Today   -->
+      <ion-view>
+      <ion-content class="padding">
+        <h4>Today</h4>    
+        <h5 class="item-divider" style="padding:10px">{{datetrans(chkdate)}}</h5>
+        <!-- <ion-item style="text-align:center;" ng-show="">No Reservation</ion-item>    -->         
+
+        <ion-list>                                
+            <ion-item ng-repeat="data in Reserve|filter:chkdate" class="item-icon-right" href="#/menu/tab/{{data.id}}">
+                <div class="row">                                                    
+                    <div class="col col-30" id = "textTab">
+                      <h2 style="text-align:center;">{{data.start_time}}</h2>
+                      <p style="text-align:center;" class="ion-android-person"> {{data.party_size}}</p>
+                    </div>
+                    <div ng-style="set_color(data)"style="background-color:#9C9C9C;color:#FFF;border-radius: 10px;">
+                      <h3 style="padding-top:25px;padding-right:10px;padding-left:10px" >{{data.status}}</h3>
+                    </div> 
+                    <div style="width:10px"></div> 
+                    <div class="col col-40" id = "textTab1">
+                          <h2><b>{{data.name}}</b></h2>
+                          <span  id="Subtitle">
+                           <p> <span ng-if="data.table!=null&&data.table!='undefined'">{{data.table}} - </span><b id="Subtitle" ng-if="data.special_request!=null&&data.special_request!='undefined'">{{data.special_request}}</b></p>
+                            </span></div>
+                    <i class="icon ion-chevron-right icon-accessory"></i>
+                    <ion-option-button class="button-balanced" ng-click='Arrived(data)'>Arrived</ion-option-button>
+                    <ion-option-button class="button-assertive" ng-click='Noshow(data)'>NoShow</ion-option-button>
+                    <ion-option-button class="button-positive" ng-click='Cancel(data)'>Cancel</ion-option-button>
+                </div>
+            </ion-item><hr>                                     
+        </ion-list>
+      </ion-content>
+      </ion-view>
+    </ion-tab>
+
+    <ion-tab title="Pending" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">
+      <ion-view>
+      <ion-content class="padding">
+
+        <ion-list>
+        <div ng-repeat="data in (filteredItem=(Reserve|filter: {arrived:'false',active:'true',no_show:'false'}))">
+          <!-- OUT ALL SET IT DIV BUT DICISION WORK ON ION ITEM -->
+
+              <h5 class="item-divider" ng-hide="filteredItem[$index-1].date.substring(0, 10)==data.date.substring(0, 10)" style="padding:10px">
+                {{datetrans(data.date)}}
+              </h5>
+
+            <ion-item class=" item-icon-right" href="#/menu/tab/{{data.id}}">
+              
+                <div class="row">                                                            
+                  <div class="col col-30" id = "textTab"><h2 style="text-align:center;">{{data.start_time}}</h2><p style="text-align:center;" class="ion-android-person"> {{data.party_size}}</p></div>
+                  <div ng-style="set_color(data)"style="background-color:#9C9C9C;color:#FFF;border-radius: 10px;"><h3 style="padding-top:25px;padding-right:10px;padding-left:10px" >{{data.status}}</h3></div>   
+                  <div style="width:10px"></div> 
+                  <div class="col col-40" id = "textTab1">
+                          <h2><b>{{data.name}}</b></h2>
+                          <span  id="Subtitle">
+                           <p> <span ng-if="data.table!=null&&data.table!='undefined'">{{data.table}} - </span><b id="Subtitle" ng-if="data.special_request!=null&&data.special_request!='undefined'">{{data.special_request}}</b></p>
+                            </span></div>
+                   <i class="icon ion-chevron-right icon-accessory"></i>
+                    <ion-option-button class="button-balanced" ng-click='Arrived(data)'>Arrived</ion-option-button>
+                    <ion-option-button class="button-assertive" ng-click='Noshow(data)'>NoShow</ion-option-button>
+                    <ion-option-button class="button-positive" ng-click='Cancel(data)'>Cancel</ion-option-button>
+                </div>
+            </ion-item><hr>
+            </div>                                    
+        </ion-list>
+      </ion-content>
+      </ion-view>
+    </ion-tab>
+
+
+  </ion-tabs>      
+</ion-view>

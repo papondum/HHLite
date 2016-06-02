@@ -1,0 +1,61 @@
+<ion-view view-title="Add Reservation">
+<ion-nav-bar class="bar-assertive">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="padding">
+
+<!--     <p>Selected Date: {{ data.date | date:'yyyy-MM-dd HH:mm' }}</p>  -->    
+    <h2 translate="a1">Add reservation</h2>
+      <div class="list">
+       <div class="dropdown">
+          <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" >
+              <label class="item item-input item-floating-label">
+                <span class="input-label" translate="c20">Date/Time<span style="color:red">*</span></span>
+                <input type="text" ng-model="data.formattedDate" placeholder="Date/Time*">            
+              </label>        
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker ng-model="data.date" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+          </ul>       
+      </div>
+      <label class="item item-input item-floating-label" style="color:gray" >
+        Party Size*
+          <span class="input-label"><span style="color:red">*</span></span>
+          <select class ="form-control"ng-model="data.size" ng-options="item as item for item in Psize" ng-init="2"></select>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label" translate="c5">Name<span style="color:red">*</span></span>
+        <input type="text" placeholder="Name*" ng-model="data.name" required>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label" translate="c6">Phone<span style="color:red">*</span></span>
+        <input type="tel" placeholder="Phone*" ng-model="data.num" required>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label" translate="c7">Note</span>
+        <input type="text"  ng-model="data.note" placeholder="Note">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label" translate="c8">Table</span>
+        <input type="text" ng-model="data.table" translate="c8" placeholder="Table">
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label" translate="c9">Email</span>
+        <input type="email" ng-model="data.email" placeholder="Email">
+      </label>
+
+      <div class="button-bar item item-floating-label">
+        <a class="button button-positive" ng-click="Add()" translate="c21">Add</a>     
+        <a class="button button-stable"   ng-click="cancel()" translate="c15">Cancel</a>
+      </div>
+    </div>
+
+
+	</ion-content>
+</ion-view>
+
+

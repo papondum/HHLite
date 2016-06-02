@@ -1,0 +1,43 @@
+<ion-view view-title="Block Reservation">
+<ion-nav-bar class="bar-assertive">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="padding">
+  <div class="list ">   
+
+    <div class="item item-icon-left">    
+        
+      <div class="row" ng-init="Condat(Res.date)">
+        <div class="col col-30 "translate="d2"><b>Start date:</b></div>  
+        <input type='date' class="col col-40 form-control" ng-model="data.StartDate"/>      
+      </div>
+      <div></div>
+      <div class="row" ng-init="Condat(Res.date)">
+        <div class="col col-30" translate="c3"><b>Time:</b> </div>
+        <input type='time' class="col col-40 form-control" ng-model="data.StartDate" step="900"/>
+      </div>
+    </div>
+
+    <div class="item item-icon-left">    
+     
+      <div class="row" ng-init="Condat(Res.date)">
+        <div class="col col-30" translate="d3"><b>End date:</b></div>  
+        <input type='date' class="col col-40 form-control" ng-model="data.EndDate"/>
+      </div>
+      <div></div>
+      <div class="row" ng-init="Condat(Res.date)"> 
+        <div class="col col-30" translate="c3"><b>Time: </b></div>
+        <input type='time' class="col col-40 form-control" ng-model="data.EndDate" step="900"/>
+      </div>
+    </div>
+
+
+
+  	<div class="button-bar item item-floating-label">
+      <a class="button button-positive" ng-click="Block()" translate="d4">Confirm</a>     
+      <a class="button button-stable"   ng-click="cancel()" translate="c17">Cancel</a>
+    </div>
+  </div>
+    </ion-content>
+  </ion-view>
